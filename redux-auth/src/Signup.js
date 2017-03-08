@@ -19,33 +19,33 @@ class Signup extends React.Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-  toggleLoader() {
+    toggleLoader() {
     this.setState({ isLoaded: !this.state.isLoaded });
-  }
+    }
 
-  onChange(e) {
-    // change a key in state with whatever the name attribute is
-      // either username or password
-    this.setState({ [e.target.name]: e.target.value });
-  }
+    onChange(e) {
+        // change a key in state with whatever the name attribute is
+        // either username or password
+        this.setState({[e.target.name]: e.target.value});
+    }
 
-  onSubmit(e) {
-    e.preventDefault();
-      this.toggleLoader()
-      // make sure we use an arrow function here to correctly bind this to this.context.router
-      this.props.signup(this.state).then(() =>{
-          this.setState({error: false})
-          this.toggleLoader()
-          // route to /login once signup is complete
-          this.context.router.push('/login');
-        },
-        // if we get back a status code of >= 400 from the server...
-        (err) =>{
-          this.toggleLoader()
-          // not for production - but good for testing for now!
-          this.setState({error: true})
-        });
-  }
+    onSubmit(e) {
+        e.preventDefault();
+        this.toggleLoader();
+        // make sure we use an arrow function here to correctly bind this to this.context.router
+        this.props.signup(this.state).then(() => {
+                this.setState({error: false})
+                this.toggleLoader()
+                // route to /login once signup is complete
+                this.context.router.push('/login');
+            },
+            // if we get back a status code of >= 400 from the server...
+            (err) => {
+                this.toggleLoader()
+                // not forr production - but good for testing for now!
+                this.setState({error: true})
+            });
+    }
 
     render() {
         const { isLoaded } = this.state;
