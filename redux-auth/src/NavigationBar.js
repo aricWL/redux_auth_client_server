@@ -13,30 +13,36 @@ class NavigationBar extends React.Component {
 
   render() {
     const userLinks = (
-      <a href="#" className="button-nav" onClick={this.logout.bind(this)}>Logout</a>
+      <div>
+        <a href="#" className="button-nav" onClick={this.logout.bind(this)}>Logout</a>
+      </div>
     );
 
     const guestLinks = (
-        <div className="">
+        <div>
           <Link className="button-nav" to="/signup">Sign up</Link>
           <Link className="button-nav" to="/login">Login</Link>
         </div>
+    );
+
+    const addPuppy = (
+      <div>
+        <Link className="button-nav" to="/add">+</Link>
+      </div>
     );
 
     return (
         <div className="heading">
             <div className="nav-title center">
               <Link to="/" className="">
-                <img src={logo} className="logo"/>
+                <img className="flex-start" src={logo} className="logo"/>
               </Link>
+            </div>
 
-            </div>
-            <div>
-              <Link to="/"></Link>
-            </div>
             <div className="nav-links">
-              {this.props.auth ? userLinks : guestLinks}
+              {addPuppy} {this.props.auth ? userLinks : guestLinks}
             </div>
+
         </div>
     );
   }
