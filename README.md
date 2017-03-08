@@ -9,7 +9,7 @@ Please fork and clone this repo to your local machine.
 * Python 3
 * Node
 * Npm
-* virtualenv 
+* Virtualenv 
 
 
 1. ``` run npm install in the redux-auth directory ```
