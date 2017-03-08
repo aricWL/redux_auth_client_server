@@ -37,7 +37,7 @@ class TestinTime(TestCase):
 		db.drop_all()
 
 	def test_home(self):
-
+		print('testing')
 		cool = self._login_user()
 
 		# Figure out the name of the header
@@ -68,6 +68,7 @@ class TestinTime(TestCase):
 		self.assertEqual(response.json, expected_json)
 
 	def test_signup(self):
+		print('the')
 		response = self.client.post('/api/users',
 					content_type='application/json',
 					data=json.dumps({
@@ -83,6 +84,7 @@ class TestinTime(TestCase):
 		self.assertEqual(str(response.json), str(expected_json))
 
 	def test_auth(self):
+		print('god')
 		response = self.client.post('api/users/auth',
 									content_type='application/json',
 									data=json.dumps({
@@ -96,7 +98,7 @@ class TestinTime(TestCase):
 		self.assertEqual(response.json, {'token': str(expected_json).replace("{", "").replace("}", "").replace("'", ""), 'id': 1})
 
 	def test_get_user(self):
-
+		print('to')
 		cool = self._login_user()
 
 		response = self.client.get('api/users/1',
@@ -114,7 +116,7 @@ class TestinTime(TestCase):
 
 
 	def test_edit_user(self):
-
+		print('down')
 		cool = self._login_user()
 		
 		response = self.client.put('api/users/1',
@@ -135,8 +137,21 @@ class TestinTime(TestCase):
 		self.assertEqual(response.status_code, 200)
 		self.assertEqual(response.json, expected_json)
 
-	
+	def test_delete_user(self):
+		print('bow')
+		cool = self._login_user()
+		
+		response = self.client.delete('api/users/1',
+									headers= dict(
+										authorization= 'Authorization JWT ' + cool['token']
+										),
+									content_type='application/json')
+		
 
+		self.assertEqual(response.status_code, 204)
+		self.assertEqual(User.query.count(), 2)
+
+	
 
 
 if __name__ == '__main__':

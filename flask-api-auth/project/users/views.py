@@ -82,12 +82,12 @@ class usersAPI(Resource):
     @jwt_required
     @marshal_with(user_fields)
     def get(self):
-        print("hello!")
+
         return User.query.all()
 
     @marshal_with(user_fields)
     def post(self):
-        print('hi')
+
         parser = reqparse.RequestParser()
         parser.add_argument('username', type=str, help='username')
         parser.add_argument('password', type=str, help='password')
