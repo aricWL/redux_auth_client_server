@@ -12,14 +12,14 @@ export default class App extends Component {
         <BrowserRouter>
           <div className="main">
             <NavigationBar/>
+            <div className="container content center">
             <Switch>
-              <div className="container content center">
                 <Route path='/login' component={Login} />
                 <Route path='/signup' component={Signup} />
                 <Route path='/welcome' component={requireAuth(Welcome)} />
                 {/* <Route render={() => <h3>No Match</h3>} /> */}
-              </div>
             </Switch>
+          </div>
           </div>
         </BrowserRouter>)
   }
