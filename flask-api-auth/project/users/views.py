@@ -16,10 +16,8 @@ def authenticate(username, password):
 def jwt_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
-        from IPython import embed; embed()
-        # see what happens
         if request.headers.get('authorization'):
-            split_token = request.headers.get('token').split(' ')[2]
+            split_token = request.headers.get('authorization').split(' ')[2]
         try:
             token = jwt.decode(split_token, 'secret', algorithm='HS256')
             if token:
@@ -34,6 +32,7 @@ def jwt_required(fn):
 def ensure_correct_user(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
+
         if request.headers.get('token'):
             split_token = request.headers.get('token').split(' ')[2]
         try:
@@ -60,15 +59,9 @@ user_fields= {
     'puppies': fields.Nested(user_puppies_fields),
 }
 
-token_fields = {
-    'token': fields.String,
-    'id': fields.Integer
-}
-
 @users_api.resource('/users/auth')
 class authAPI(Resource):
 
-    @marshal_with(token_fields)
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('username', type=str, help='username')
@@ -89,11 +82,12 @@ class usersAPI(Resource):
     @jwt_required
     @marshal_with(user_fields)
     def get(self):
+        print("hello!")
         return User.query.all()
 
     @marshal_with(user_fields)
     def post(self):
-
+        print('hi')
         parser = reqparse.RequestParser()
         parser.add_argument('username', type=str, help='username')
         parser.add_argument('password', type=str, help='password')
