@@ -46,6 +46,9 @@ class LoginForm extends React.Component {
 
     const loadedContent = (
       <div>
+      <div className="loader-wrapper">
+          <Loader loaded={isLoaded}></Loader>
+        </div>
       </div>
     )
 
