@@ -61,7 +61,7 @@ class Signup extends React.Component {
     const showForm = (
         <div>
           <form onSubmit={this.onSubmit}>
-            <h1>Log in!</h1>
+            <h1>Sign Up!</h1>
             <div className="form-group">
               <label htmlFor="username"></label>
               <input placeholder="username" type="text" id="username" name="username"
