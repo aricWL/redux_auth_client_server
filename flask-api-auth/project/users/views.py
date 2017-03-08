@@ -54,7 +54,7 @@ user_puppies_fields = {
 user_fields= {
     'id': fields.Integer,
     'username': fields.String,
-    'password': fields.String,
+
     'puppies': fields.Nested(user_puppies_fields),
 }
 
@@ -74,7 +74,7 @@ class authAPI(Resource):
 @users_api.resource('/users')
 class usersAPI(Resource):
 
-    @jwt_required
+    # @jwt_required
     @marshal_with(user_fields)
     def get(self):
         return User.query.all()
