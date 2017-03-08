@@ -16,7 +16,6 @@ def authenticate(username, password):
 def jwt_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
-
         if request.headers.get('token'):
             split_token = request.headers.get('token').split(' ')[2]
         try:
