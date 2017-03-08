@@ -5,7 +5,8 @@ export default class NotFound extends Component {
     return (
       <div>
         <h3>Oops! You are not allowed here and/or broke something!</h3>
-        <p>Please find your way back to safety</p>
+        <img src="https://httpstatusdogs.com/img/404.jpg" alt="404 not found"/>
+        <p>Please find your way back to safety. In the meantime, enjoy this pup.</p>
       </div>
     )
   }
