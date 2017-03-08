@@ -24,7 +24,7 @@ class Signup extends React.Component {
     }
 
     onSubmit(e) {
-        e.preventDefault();
+        e.preventDefault()
         // make sure we use an arrow function here to correctly bind this to this.context.router
         this.props.signup(this.state).then(() => {
                 this.setState({error: false})
@@ -35,6 +35,8 @@ class Signup extends React.Component {
             (err) => {
                 // not forr production - but good for testing for now!
                 this.setState({error: true})
+      }
+    }
 
 
   onSubmit(e) {
