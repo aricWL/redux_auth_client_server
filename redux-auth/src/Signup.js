@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { signup } from './actions';
+import Loader from 'react-loader'
 
 class Signup extends React.Component {
   // pretty standard
@@ -9,10 +10,15 @@ class Signup extends React.Component {
     this.state = {
       username: '',
       password: '',
+      isLoaded: true
     }
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  toggleLoader() {
+    this.setState({ isLoaded: !this.state.isLoaded });
   }
 
   onChange(e) {
@@ -23,8 +29,10 @@ class Signup extends React.Component {
 
   onSubmit(e) {
     e.preventDefault();
+      this.toggleLoader()
       // make sure we use an arrow function here to correctly bind this to this.context.router
       this.props.signup(this.state).then(() =>{
+          this.toggleLoader()
           // route to /login once signup is complete
           this.context.router.push('/login');
         },
@@ -36,9 +44,14 @@ class Signup extends React.Component {
   }
 
   render() {
+    const { isLoaded } = this.state;
     return (
       <div className="row">
         <div className="col-md-4 col-md-offset-4">
+            <div className="loader-wrapper">
+            <Loader loaded={isLoaded}>
+            </Loader>
+            </div>
             <form onSubmit={this.onSubmit}>
               <h1>Sign up!</h1>
               <div className="form-group">

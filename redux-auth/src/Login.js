@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { login } from './actions';
+import Loader from 'react-loader'
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -8,17 +9,23 @@ class LoginForm extends React.Component {
     this.state = {
       username: '',
       password: '',
+      isLoaded: true
     };
-
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
+  toggleLoader() {
+    this.setState({ isLoaded: !this.state.isLoaded });
+  }
 
   onSubmit(e) {
     e.preventDefault();
+      this.toggleLoader()
       this.props.login(this.state).then(
-        (res) => this.context.router.push('/welcome'),
+        (res) => {
+          this.toggleLoader()
+          this.context.router.push('/welcome')},
         (err) => {
         debugger;
         });
@@ -29,10 +36,14 @@ class LoginForm extends React.Component {
   }
 
   render() {
+    const { isLoaded } = this.state;
     const { username, password } = this.state;
-
     return (
       <div className="row">
+        <div className="loader-wrapper">
+        <Loader loaded={isLoaded}>
+        </Loader>
+        </div>
         <div className="col-md-4 col-md-offset-4">
       <form onSubmit={this.onSubmit}>
         <h1>Login</h1>
