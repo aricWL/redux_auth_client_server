@@ -16,6 +16,7 @@ def authenticate(username, password):
 def jwt_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
+
         if request.headers.get('token'):
             split_token = request.headers.get('token').split(' ')[2]
         try:
@@ -32,6 +33,7 @@ def jwt_required(fn):
 def ensure_correct_user(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
+
         if request.headers.get('token'):
             split_token = request.headers.get('token').split(' ')[2]
         try:
@@ -77,6 +79,7 @@ class usersAPI(Resource):
     @jwt_required
     @marshal_with(user_fields)
     def get(self):
+        print("hello!")
         return User.query.all()
 
     @marshal_with(user_fields)
