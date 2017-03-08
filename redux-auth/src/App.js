@@ -15,10 +15,11 @@ export default class App extends Component {
             <NavigationBar/>
             <Switch>
               <div className="container content center">
+                <Route exact path="/"/>
                 <Route path='/login' component={Login} />
                 <Route path='/signup' component={Signup} />
                 <Route path='/welcome' component={requireAuth(Welcome)} />
-                <Route path='*' component={NotFound} />
+                <Route path="*" component={NotFound} />
               </div>
             </Switch>
           </div>

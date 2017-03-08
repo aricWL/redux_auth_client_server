@@ -4,7 +4,8 @@ export default class NotFound extends Component {
   render() {
     return (
       <div>
-        <h1>Oops! You are not allowed here and/or broke something!</h1>
+        <h3>Oops! You are not allowed here and/or broke something!</h3>
+        <p>Please find your way back to safety</p>
       </div>
     )
   }
