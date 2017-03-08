@@ -58,9 +58,15 @@ user_fields= {
     'puppies': fields.Nested(user_puppies_fields),
 }
 
+token_fields = {
+    'token': fields.String,
+    'id': fields.Integer
+}
+
 @users_api.resource('/users/auth')
 class authAPI(Resource):
 
+    @marshal_with(token_fields)
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('username', type=str, help='username')
@@ -68,7 +74,9 @@ class authAPI(Resource):
         args = parser.parse_args()
         token = authenticate(args['username'], args['password'])
         if token:
-            return token
+            found_user = User.query.filter_by(username= args['username']).first()
+            obj = {'token': token, 'id': found_user.id} 
+            return obj
         return abort(400, "Invalid Credentials")
 
 @users_api.resource('/users')
