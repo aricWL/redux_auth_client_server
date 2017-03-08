@@ -24,11 +24,13 @@ export function logout() {
 export function login(data) {
   return dispatch => {
     return axios.post(`${BASE_URL}/api/users/auth`, data).then(res => {
+      // where is "res" coming from?
       const token = res.data.token;
       const userId = res.data.id;
       localStorage.setItem('jwtToken', token);
       localStorage.setItem('id', userId);
       setAuthorizationToken(token);
+      // debugger
       dispatch(setCurrentUser(jwtDecode(token)));
     });
   }
@@ -61,3 +63,4 @@ export function addPuppy(puppyData){
     return axios.post(`${BASE_URL}/api/users/${userId}/puppies`, puppyData)
   }
 }
+

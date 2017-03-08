@@ -95,7 +95,7 @@ class usersAPI(Resource):
 
     @marshal_with(user_fields)
     def post(self):
-        print('Signing Up on the backend')
+
         parser = reqparse.RequestParser()
         parser.add_argument('username', type=str, help='username')
         parser.add_argument('password', type=str, help='password')
