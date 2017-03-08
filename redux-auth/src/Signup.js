@@ -48,62 +48,42 @@ class Signup extends React.Component {
     }
 
     render() {
-        const { isLoaded } = this.state;
-        if (this.state.error === true) {
+        const { isLoaded, error } = this.state;
+
+        const loadedContent = (
+      <div>
+        <div className="loader-wrapper">
+          <Loader loaded={isLoaded}></Loader>
+        </div>
+      </div>
+    )
+
+    const showForm = (
+        <div>
+          <form onSubmit={this.onSubmit}>
+            <h1>Log in!</h1>
+            <div className="form-group">
+              <label htmlFor="username"></label>
+              <input placeholder="username" type="text" id="username" name="username"
+                     value={this.state.username} onChange={this.onChange}/>
+            </div>
+            <div className="form-group">
+              <label htmlFor="password"></label>
+              <input type="password" placeholder="password" id="password" name="password"
+                     value={this.state.password} onChange={this.onChange}/>
+            </div>
+            <button className="button-content">
+              Sign up
+            </button>
+          </form>
+        </div>
+    )
             return (
-            <div>
-                <div>
-                    <div className="loader-wrapper">
-                    <Loader loaded={isLoaded}>
-                    </Loader>
-                    </div>
-                    <form onSubmit={this.onSubmit}>
-                        <Flash></Flash>
-                        <h1>Sign up!</h1>
-                        <div className="form-group">
-                            <label htmlFor="username"></label>
-                            <input placeholder="username" type="text" id="username" name="username"
-                                   value={this.state.username} onChange={this.onChange}/>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="password"></label>
-                            <input type="password" placeholder="password" id="password" name="password"
-                                   value={this.state.password} onChange={this.onChange}/>
-                        </div>
-                        <button className="button-content">
-                            Sign up
-                        </button>
-                    </form>
-                </div>
+            <div>  
+              {error ?  <Flash/> : null}
+              {isLoaded ?  showForm : loadedContent}         
             </div>
             )
-        }
-        return (
-            <div>
-                <div>
-                    <div className="loader-wrapper">
-                    <Loader loaded={isLoaded}>
-                    </Loader>
-                    </div>
-                    <form onSubmit={this.onSubmit}>
-                        <h1>Sign up!</h1>
-                        <div className="form-group">
-                            <label htmlFor="username"></label>
-                            <input placeholder="username" type="text" id="username" name="username"
-                                   value={this.state.username} onChange={this.onChange}/>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="password"></label>
-                            <input type="password" placeholder="password" id="password" name="password"
-                                   value={this.state.password} onChange={this.onChange}/>
-                        </div>
-                        <button className="button-content">
-                            Sign up
-                        </button>
-                    </form>
-                </div>
-            </div>
-        );
     }
 }
 
