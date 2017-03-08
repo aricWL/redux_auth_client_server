@@ -41,7 +41,7 @@ class LoginForm extends React.Component {
                 <div>
                   <form onSubmit={this.onSubmit}>
                     <Flash></Flash>
-                    <h1>Sign up!</h1>
+                    <h2>Sign up</h2>
                     <div className="form-group">
                       <label htmlFor="username"></label>
                       <input placeholder="username" type="text" id="username" name="username"
@@ -65,7 +65,7 @@ class LoginForm extends React.Component {
       <div>
         <div>
       <form onSubmit={this.onSubmit}>
-        <h1>Login</h1>
+        <h2>Login</h2>
         <div className="form-group">
             <label htmlFor="username"></label>
             <input placeholder="Username" type="text" id="username" name="username" value={username} onChange={this.onChange}/>
