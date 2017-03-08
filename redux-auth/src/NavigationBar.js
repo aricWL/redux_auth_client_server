@@ -12,20 +12,20 @@ class NavigationBar extends React.Component {
 
   render() {
     const userLinks = (
-      <a href="#" className="butt" onClick={this.logout.bind(this)}>Logout</a>
+      <a href="#" className="button-nav" onClick={this.logout.bind(this)}>Logout</a>
     );
 
     const guestLinks = (
         <div className="">
-          <Link className="butt" to="/signup">Sign up</Link>
-          <Link className="butt" to="/login">Login</Link>
+          <Link className="button-nav" to="/signup">Sign up</Link>
+          <Link className="button-nav" to="/login">Login</Link>
         </div>
     );
 
     return (
         <div className="heading">
             <div className="nav-title center">
-              <Link to="/" className="">Holy SH*T PUPPIES!</Link>
+              <Link to="/" className="">Very Important Puppies</Link>
             </div>
 
             <div className="nav-links">

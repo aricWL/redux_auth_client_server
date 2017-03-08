@@ -44,7 +44,7 @@ class LoginForm extends React.Component {
             <label htmlFor="password">password</label>
             <input type="password" id="password" name="password" value={password} onChange={this.onChange}/>
           </div>
-        <button type="submit" className="dark-butt">Login</button>
+        <button type="submit" className="button-content">Login</button>
       </form>
       </div>
       </div>
