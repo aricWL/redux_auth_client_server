@@ -53,7 +53,8 @@ class TestinTime(TestCase):
 		self.assertEqual(response.status_code, 200)
 		self.assertEqual(response.json, expected_json)
 
-	
+	def test_auth(self):
+		response = self.client
 
 
 
