@@ -6,10 +6,10 @@ To get this project up and running on your local machine you will need to have t
 Please fork and clone this repo to your local machine.
 
 
-*Python 3
-*Node
-*Npm
-*virtualenv 
+* Python 3
+* Node
+* Npm
+* virtualenv 
 
 
 1. ``` run npm install in the redux-auth directory ```
