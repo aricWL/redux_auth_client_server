@@ -16,7 +16,9 @@ def authenticate(username, password):
 def jwt_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
-        if request.headers.get('token'):
+        from IPython import embed; embed()
+        # see what happens
+        if request.headers.get('authorization'):
             split_token = request.headers.get('token').split(' ')[2]
         try:
             token = jwt.decode(split_token, 'secret', algorithm='HS256')
@@ -72,6 +74,7 @@ class authAPI(Resource):
         parser.add_argument('username', type=str, help='username')
         parser.add_argument('password', type=str, help='password')
         args = parser.parse_args()
+        from IPython import embed; embed()
         token = authenticate(args['username'], args['password'])
         if token:
             found_user = User.query.filter_by(username= args['username']).first()

@@ -17,12 +17,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_AUTH_URL_RULE'] = '/api/users/auth'
 app.config['SECRET_KEY'] = 'shhhh'
 app.config['JWT_EXPIRATION_DELTA'] = timedelta(seconds=3600)
+app.config['JWT_DEFAULT_REALM'] = "Login Required"
 
 from project.puppies.views import puppies_api
 from project.users.views import users_api
 
 app.register_blueprint(users_api.blueprint, url_prefix='/api')
-# app.register_blueprint(puppies_api.blueprint, url_prefix='/api/users/<int:user_id>')
-app.register_blueprint(puppies_api.blueprint, url_prefix='/api/puppies')
+app.register_blueprint(puppies_api.blueprint, url_prefix='/api/users/<int:user_id>')
+
 
 
