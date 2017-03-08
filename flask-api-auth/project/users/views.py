@@ -69,7 +69,11 @@ class authAPI(Resource):
         args = parser.parse_args()
         token = authenticate(args['username'], args['password'])
         if token:
-            return token
+            found_user = User.query.filter_by(username= args['username']).first()
+            obj = {'token': token, 'id': found_user.id} 
+            # this looks like where the JWT token is being returned,
+            # and specified to have an id element
+            return obj
         return abort(400, "Invalid Credentials")
 
 @users_api.resource('/users')

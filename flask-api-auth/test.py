@@ -38,14 +38,15 @@ class TestinTime(TestCase):
 
 	def test_home(self):
 
-		token = self._login_user()
+		cool = self._login_user()
+		from IPython import embed; embed()
 		# Figure out the name of the header
 		# figure out the value of the header
 			# add the token to the header
 
 		response = self.client.get('/api/users',
 									headers= dict(
-										authorization= 'Authorization JWT ' + token
+										authorization= 'Authorization JWT ' + cool['token']
 										),
 									content_type='application/json')
 		expected_json = [{
@@ -92,7 +93,7 @@ class TestinTime(TestCase):
 			authenticate('aliesenfelt', 'pass1')
 		}
 		self.assertEqual(response.status_code, 200)
-		self.assertEqual(response.json, str(expected_json).replace("{", "").replace("}", "").replace("'", ""))
+		self.assertEqual(response.json, {'token': str(expected_json).replace("{", "").replace("}", "").replace("'", ""), 'id': 1})
 
 	
 
