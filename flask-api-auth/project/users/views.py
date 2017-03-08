@@ -54,7 +54,7 @@ user_puppies_fields = {
 user_fields= {
     'id': fields.Integer,
     'username': fields.String,
-    'password': fields.String,
+
     'puppies': fields.Nested(user_puppies_fields),
 }
 

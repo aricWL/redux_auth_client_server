@@ -32,8 +32,8 @@ class LoginForm extends React.Component {
     const { username, password } = this.state;
 
     return (
-      <div className="row">
-        <div className="col-md-4 col-md-offset-4">
+      <div>
+        <div>
       <form onSubmit={this.onSubmit}>
         <h1>Login</h1>
         <div className="form-group">
@@ -44,7 +44,7 @@ class LoginForm extends React.Component {
             <label htmlFor="password">password</label>
             <input type="password" id="password" name="password" value={password} onChange={this.onChange}/>
           </div>
-        <button type="submit" className="btn btn-primary">Login</button>
+        <button type="submit" className="dark-butt">Login</button>
       </form>
       </div>
       </div>

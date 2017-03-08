@@ -38,23 +38,21 @@ class Signup extends React.Component {
 
   render() {
     return (
-      <div className="row">
-        <div className="col-md-4 col-md-offset-4">
+      <div>
+        <div>
             <form onSubmit={this.onSubmit}>
               <h1>Sign up!</h1>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
-                <input type="text" id="username" name="username" value={this.state.username} onChange={this.onChange}/>
+                <label htmlFor="username"></label>
+                <input placeholder="username" type="text" id="username" name="username" value={this.state.username} onChange={this.onChange}/>
               </div>
               <div className="form-group">
-                <label htmlFor="password">password</label>
-                <input type="password" id="password" name="password" value={this.state.password} onChange={this.onChange}/>
+                <label htmlFor="password"></label>
+                <input type="password" placeholder="password" id="password" name="password" value={this.state.password} onChange={this.onChange}/>
               </div>
-              <div className="form-group">
-                <button className="btn btn-primary btn-lg">
+                <button className="dark-butt">
                   Sign up
                 </button>
-              </div>
             </form>
         </div>
       </div>
