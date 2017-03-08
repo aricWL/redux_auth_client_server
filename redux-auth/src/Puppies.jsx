@@ -33,7 +33,7 @@ export class PuppyForm extends Component{
 		return (
 			<div id='PuppyForm'>
 				<form onSubmit={this.onSubmit.bind(this)}>
-					<label>Shitty Puppy Name:
+					<label>Name:
 						<input name='name' onChange={this.onChange.bind(this)}/>
 					</label>
 					<input type='submit' value='Submit'/>
