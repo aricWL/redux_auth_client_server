@@ -45,7 +45,7 @@ class TestinTime(TestCase):
 
 		response = self.client.get('/api/users',
 									headers= dict(
-										token= 'Authorization JWT ' + token
+										authorization= 'Authorization JWT ' + token
 										),
 									content_type='application/json')
 		expected_json = [{
@@ -94,7 +94,7 @@ class TestinTime(TestCase):
 		self.assertEqual(response.status_code, 200)
 		self.assertEqual(response.json, str(expected_json).replace("{", "").replace("}", "").replace("'", ""))
 
-	def 
+	
 
 
 

@@ -16,8 +16,8 @@ def authenticate(username, password):
 def jwt_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
-        if request.headers.get('token'):
-            split_token = request.headers.get('token').split(' ')[2]
+        if request.headers.get('authorization'):
+            split_token = request.headers.get('authorization').split(' ')[2]
         try:
             token = jwt.decode(split_token, 'secret', algorithm='HS256')
             if token:
