@@ -98,7 +98,7 @@ class TestinTime(TestCase):
 	def test_get_user(self):
 
 		cool = self._login_user()
-		
+
 		response = self.client.get('api/users/1',
 									headers= dict(
 										authorization= 'Authorization JWT ' + cool['token']
@@ -113,6 +113,27 @@ class TestinTime(TestCase):
 		self.assertEqual(response.json, expected_json)
 
 
+	def test_edit_user(self):
+
+		cool = self._login_user()
+		
+		response = self.client.put('api/users/1',
+									headers= dict(
+										authorization= 'Authorization JWT ' + cool['token']
+										),
+									content_type='application/json',
+									data=json.dumps({
+										'username': 'aliesenfelt2',
+										'password': 'pass2'
+										}))
+		expected_json = ({
+			'id': 1,
+			'username': 'aliesenfelt2',
+			'puppies': []
+		})
+
+		self.assertEqual(response.status_code, 200)
+		self.assertEqual(response.json, expected_json)
 
 	
 

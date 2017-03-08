@@ -118,11 +118,10 @@ class UserAPI(Resource):
         parser.add_argument('username', type=str, help='username')
         parser.add_argument('password', type=str, help='password')
         args = parser.parse_args()
-        found_user.name = args['username']
+        found_user.username = args['username']
         found_user.password = bcrypt.generate_password_hash(args['password']).decode('UTF-8')
         db.session.add(found_user)
         db.session.commit()
-
         return found_user
 
     @jwt_required
