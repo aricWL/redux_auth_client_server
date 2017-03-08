@@ -49,7 +49,7 @@ class Signup extends React.Component {
                 <label htmlFor="password"></label>
                 <input type="password" placeholder="password" id="password" name="password" value={this.state.password} onChange={this.onChange}/>
               </div>
-                <button className="dark-butt">
+                <button className="button-content">
                   Sign up
                 </button>
             </form>

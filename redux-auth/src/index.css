@@ -24,7 +24,7 @@ body{
 }
 
 .nav-title{
-  font-size:10rem;
+  font-size:10vmax;
 }
 
 .nav-links{
@@ -38,7 +38,7 @@ body{
   text-align:center;
 }
 
-.butt{
+.button-nav{
   padding:1rem;
   border-radius: 2px;
   font-size:2rem;
@@ -48,7 +48,7 @@ body{
   border:none;
 }
 
-.dark-butt{
+.button-content{
   padding:1rem;
   border-radius: 2px;
   font-size:2rem;
