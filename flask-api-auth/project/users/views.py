@@ -16,7 +16,9 @@ def authenticate(username, password):
 def jwt_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
-        if request.headers.get('token'):
+        from IPython import embed; embed()
+        # see what happens
+        if request.headers.get('authorization'):
             split_token = request.headers.get('token').split(' ')[2]
         try:
             token = jwt.decode(split_token, 'secret', algorithm='HS256')
@@ -58,17 +60,29 @@ user_fields= {
     'puppies': fields.Nested(user_puppies_fields),
 }
 
+token_fields = {
+    'token': fields.String,
+    'id': fields.Integer
+}
+
 @users_api.resource('/users/auth')
 class authAPI(Resource):
 
+    @marshal_with(token_fields)
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('username', type=str, help='username')
         parser.add_argument('password', type=str, help='password')
         args = parser.parse_args()
+        from IPython import embed; embed()
         token = authenticate(args['username'], args['password'])
         if token:
-            return token
+            found_user = User.query.filter_by(username= args['username']).first()
+            obj = {'token': token, 'id': found_user.id} 
+            # this looks like where the JWT token is being returned,
+            # and specified to have an id element
+            from IPython import embed; embed()
+            return obj
         return abort(400, "Invalid Credentials")
 
 @users_api.resource('/users')
@@ -81,6 +95,7 @@ class usersAPI(Resource):
 
     @marshal_with(user_fields)
     def post(self):
+
         parser = reqparse.RequestParser()
         parser.add_argument('username', type=str, help='username')
         parser.add_argument('password', type=str, help='password')
