@@ -44,7 +44,7 @@ export function setCurrentUser(user) {
 }
 
 export function signup(userData) {
-  return function notDispatch() { 
+  return function notDispatch() {
   // return dispatch => {
     return axios.post(`${BASE_URL}/api/users`, userData);
   }
@@ -55,7 +55,7 @@ export function signup(userData) {
 
 export function addPuppy(puppyData){
   console.log("add puppy debugger")
-  debugger
+  
   var userId = localStorage.id
   return dispatch => {
     console.log("add puppy ran!")
@@ -63,5 +63,3 @@ export function addPuppy(puppyData){
     return axios.post(`${BASE_URL}/api/users/${userId}/puppies`, puppyData)
   }
 }
-
-
