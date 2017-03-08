@@ -2,7 +2,8 @@ import { SET_CURRENT_USER } from './actions';
 
 const DEFAULT_STATE = {
   isAuthenticated: false,
-  user: {}
+  user: {},
+  puppies: ['Lassie','Fluffykins','Wiener Dog']
 };
 
 export default function (state = DEFAULT_STATE, action){
