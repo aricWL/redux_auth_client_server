@@ -44,3 +44,10 @@ export function setCurrentUser(user) {
     user
   };
 }
+
+
+export function addPuppy(puppyData){
+  return dispatch => {
+    return axios.post
+  }
+}
