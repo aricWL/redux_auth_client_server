@@ -33,8 +33,8 @@ def ensure_correct_user(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
 
-        if request.headers.get('token'):
-            split_token = request.headers.get('token').split(' ')[2]
+        if request.headers.get('authorization'):
+            split_token = request.headers.get('authorization').split(' ')[2]
         try:
             token = jwt.decode(split_token, 'secret', algorithm='HS256')
             if kwargs.get('id') == token.get('id'):
@@ -118,11 +118,10 @@ class UserAPI(Resource):
         parser.add_argument('username', type=str, help='username')
         parser.add_argument('password', type=str, help='password')
         args = parser.parse_args()
-        found_user.name = args['username']
+        found_user.username = args['username']
         found_user.password = bcrypt.generate_password_hash(args['password']).decode('UTF-8')
         db.session.add(found_user)
         db.session.commit()
-
         return found_user
 
     @jwt_required

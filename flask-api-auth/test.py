@@ -39,7 +39,7 @@ class TestinTime(TestCase):
 	def test_home(self):
 
 		cool = self._login_user()
-		from IPython import embed; embed()
+
 		# Figure out the name of the header
 		# figure out the value of the header
 			# add the token to the header
@@ -94,6 +94,46 @@ class TestinTime(TestCase):
 		}
 		self.assertEqual(response.status_code, 200)
 		self.assertEqual(response.json, {'token': str(expected_json).replace("{", "").replace("}", "").replace("'", ""), 'id': 1})
+
+	def test_get_user(self):
+
+		cool = self._login_user()
+
+		response = self.client.get('api/users/1',
+									headers= dict(
+										authorization= 'Authorization JWT ' + cool['token']
+										),
+									content_type='application/json')
+		expected_json = ({
+			'id': 1,
+			'username': 'aliesenfelt',
+			'puppies': []
+		})
+		self.assertEqual(response.status_code, 200)
+		self.assertEqual(response.json, expected_json)
+
+
+	def test_edit_user(self):
+
+		cool = self._login_user()
+		
+		response = self.client.put('api/users/1',
+									headers= dict(
+										authorization= 'Authorization JWT ' + cool['token']
+										),
+									content_type='application/json',
+									data=json.dumps({
+										'username': 'aliesenfelt2',
+										'password': 'pass2'
+										}))
+		expected_json = ({
+			'id': 1,
+			'username': 'aliesenfelt2',
+			'puppies': []
+		})
+
+		self.assertEqual(response.status_code, 200)
+		self.assertEqual(response.json, expected_json)
 
 	
 
