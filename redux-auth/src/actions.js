@@ -30,8 +30,10 @@ export function logout() {
 export function login(data) {
   return dispatch => {
     return axios.post(`${BASE_URL}/api/users/auth`, data).then(res => {
-      const token = res.data;
+      const token = res.data.token;
+      const id = res.data.id
       localStorage.setItem('jwtToken', token);
+      localStorage.setItem('userId', id);
       setAuthorizationToken(token);
       dispatch(setCurrentUser(jwtDecode(token)));
     });

@@ -1,21 +1,23 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { signup } from './actions';
+import {connect} from 'react-redux';
+import {signup} from './actions';
+import Flash from './Flash'
 import Loader from 'react-loader'
 
 class Signup extends React.Component {
-  // pretty standard
-  constructor(props) {
-    super(props)
-    this.state = {
-      username: '',
-      password: '',
-      isLoaded: true
-    }
+    // pretty standard
+    constructor(props) {
+        super(props)
+        this.state = {
+            username: '',
+            password: '',
+            error: false,
+            isLoaded: true
+        }
 
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+    }
 
   toggleLoader() {
     this.setState({ isLoaded: !this.state.isLoaded });
@@ -32,53 +34,84 @@ class Signup extends React.Component {
       this.toggleLoader()
       // make sure we use an arrow function here to correctly bind this to this.context.router
       this.props.signup(this.state).then(() =>{
+          this.setState({error: false})
           this.toggleLoader()
           // route to /login once signup is complete
           this.context.router.push('/login');
         },
         // if we get back a status code of >= 400 from the server...
         (err) =>{
+          this.toggleLoader()
           // not for production - but good for testing for now!
-          debugger
+          this.setState({error: true})
         });
   }
 
-  render() {
-    const { isLoaded } = this.state;
-    return (
-      <div className="row">
-        <div className="col-md-4 col-md-offset-4">
-            <div className="loader-wrapper">
-            <Loader loaded={isLoaded}>
-            </Loader>
+    render() {
+        const { isLoaded } = this.state;
+        if (this.state.error === true) {
+            return (
+            <div>
+                <div>
+                    <div className="loader-wrapper">
+                    <Loader loaded={isLoaded}>
+                    </Loader>
+                    </div>
+                    <form onSubmit={this.onSubmit}>
+                        <Flash></Flash>
+                        <h1>Sign up!</h1>
+                        <div className="form-group">
+                            <label htmlFor="username"></label>
+                            <input placeholder="username" type="text" id="username" name="username"
+                                   value={this.state.username} onChange={this.onChange}/>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="password"></label>
+                            <input type="password" placeholder="password" id="password" name="password"
+                                   value={this.state.password} onChange={this.onChange}/>
+                        </div>
+                        <button className="button-content">
+                            Sign up
+                        </button>
+                    </form>
+                </div>
             </div>
-            <form onSubmit={this.onSubmit}>
-              <h1>Sign up!</h1>
-              <div className="form-group">
-                <label htmlFor="username">Username</label>
-                <input type="text" id="username" name="username" value={this.state.username} onChange={this.onChange}/>
-              </div>
-              <div className="form-group">
-                <label htmlFor="password">password</label>
-                <input type="password" id="password" name="password" value={this.state.password} onChange={this.onChange}/>
-              </div>
-              <div className="form-group">
-                <button className="btn btn-primary btn-lg">
-                  Sign up
-                </button>
-              </div>
-            </form>
-        </div>
-      </div>
-    );
-  }
+            )
+        }
+        return (
+            <div>
+                <div>
+                    <div className="loader-wrapper">
+                    <Loader loaded={isLoaded}>
+                    </Loader>
+                    </div>
+                    <form onSubmit={this.onSubmit}>
+                        <h1>Sign up!</h1>
+                        <div className="form-group">
+                            <label htmlFor="username"></label>
+                            <input placeholder="username" type="text" id="username" name="username"
+                                   value={this.state.username} onChange={this.onChange}/>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="password"></label>
+                            <input type="password" placeholder="password" id="password" name="password"
+                                   value={this.state.password} onChange={this.onChange}/>
+                        </div>
+                        <button className="button-content">
+                            Sign up
+                        </button>
+                    </form>
+                </div>
+            </div>
+        );
+    }
 }
 
 Signup.contextTypes = {
     router: React.PropTypes.object.isRequired
 }
 Signup.propTypes = {
-  signup: React.PropTypes.func.isRequired
+    signup: React.PropTypes.func.isRequired
 }
 
-export default connect(null,{ signup })(Signup);
+export default connect(null, {signup})(Signup);
