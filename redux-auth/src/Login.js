@@ -46,9 +46,6 @@ class LoginForm extends React.Component {
 
     const loadedContent = (
       <div>
-        <div className="loader-wrapper">
-          <Loader loaded={isLoaded}></Loader>
-        </div>
       </div>
     )
 
@@ -67,7 +64,7 @@ class LoginForm extends React.Component {
                      value={password} onChange={this.onChange}/>
             </div>
             <button className="button-content">
-              Sign up
+              Log In
             </button>
           </form>
         </div>
