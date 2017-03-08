@@ -74,14 +74,12 @@ class authAPI(Resource):
         parser.add_argument('username', type=str, help='username')
         parser.add_argument('password', type=str, help='password')
         args = parser.parse_args()
-        from IPython import embed; embed()
         token = authenticate(args['username'], args['password'])
         if token:
             found_user = User.query.filter_by(username= args['username']).first()
             obj = {'token': token, 'id': found_user.id} 
             # this looks like where the JWT token is being returned,
             # and specified to have an id element
-            from IPython import embed; embed()
             return obj
         return abort(400, "Invalid Credentials")
 

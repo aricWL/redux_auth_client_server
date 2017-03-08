@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { login } from './actions';
+import Loader from 'react-loader'
 import Flash from './Flash'
 
 class LoginForm extends React.Component {
@@ -9,22 +10,28 @@ class LoginForm extends React.Component {
     this.state = {
       username: '',
       password: '',
+      isLoaded: true,
       error: false
     };
-
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
+  toggleLoader() {
+    this.setState({ isLoaded: !this.state.isLoaded });
+  }
 
   onSubmit(e) {
     e.preventDefault();
+      this.toggleLoader()
       this.props.login(this.state).then(
         (res) => {
-          this.setState({error: false})
+          this.toggleLoader()
           this.context.router.push('/welcome')
-        },
+          this.setState({error: false})},
+        
         (err) => {
+            this.toggleLoader()
             this.setState({error: true})
         });
   }
@@ -34,49 +41,38 @@ class LoginForm extends React.Component {
   }
 
   render() {
+    const { isLoaded, error } = this.state;
     const { username, password } = this.state;
-      if (this.state.error === true) {
-          return (
-              <div>
-                <div>
-                  <form onSubmit={this.onSubmit}>
-                    <Flash></Flash>
-                    <h2>Sign up</h2>
-                    <div className="form-group">
-                      <label htmlFor="username"></label>
-                      <input placeholder="username" type="text" id="username" name="username"
-                             value={this.state.username} onChange={this.onChange}/>
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor="password"></label>
-                      <input type="password" placeholder="password" id="password" name="password"
-                             value={this.state.password} onChange={this.onChange}/>
-                    </div>
-                    <button className="button-content">
-                      Sign up
-                    </button>
-                  </form>
-                </div>
-              </div>
-          )
-      }
 
+    const loadedContent = (
+      <div>
+      </div>
+    )
+
+    const showForm = (
+        <div>
+          <form onSubmit={this.onSubmit}>
+            <h1>Log in!</h1>
+            <div className="form-group">
+              <label htmlFor="username"></label>
+              <input placeholder="username" type="text" id="username" name="username"
+                     value={username} onChange={this.onChange}/>
+            </div>
+            <div className="form-group">
+              <label htmlFor="password"></label>
+              <input type="password" placeholder="password" id="password" name="password"
+                     value={password} onChange={this.onChange}/>
+            </div>
+            <button className="button-content">
+              Log In
+            </button>
+          </form>
+        </div>
+    )
     return (
       <div>
-        <div>
-      <form onSubmit={this.onSubmit}>
-        <h2>Login</h2>
-        <div className="form-group">
-            <label htmlFor="username"></label>
-            <input placeholder="Username" type="text" id="username" name="username" value={username} onChange={this.onChange}/>
-          </div>
-          <div className="form-group">
-            <label htmlFor="password"></label>
-            <input type="password" placeholder="password" id="password" name="password" value={password} onChange={this.onChange}/>
-          </div>
-        <button type="submit" className="button-content">Login</button>
-      </form>
-      </div>
+        {error ?  <Flash/> : null}
+        {isLoaded ?  showForm : loadedContent}
       </div>
     );
   }
