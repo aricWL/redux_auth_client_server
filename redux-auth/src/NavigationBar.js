@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from './actions';
+import './index.css'
 
 class NavigationBar extends React.Component {
   logout(e) {
@@ -11,29 +12,26 @@ class NavigationBar extends React.Component {
 
   render() {
     const userLinks = (
-      <ul className="nav navbar-nav navbar-right">
-        <li><a href="#" onClick={this.logout.bind(this)}>Logout</a></li>
-      </ul>
+      <a href="#" className="butt" onClick={this.logout.bind(this)}>Logout</a>
     );
 
     const guestLinks = (
-        <ul className="nav navbar-nav navbar-right">
-          <li><Link to="/signup">Sign up</Link></li>
-          <li><Link to="/login">Login</Link></li>
-        </ul>
+        <div className="">
+          <Link className="butt" to="/signup">Sign up</Link>
+          <Link className="butt" to="/login">Login</Link>
+        </div>
     );
 
     return (
-        <nav className="navbar navbar-default">
-          <div className="container-fluid">
-            <div className="navbar-header">
-              <Link to="/" className="navbar-brand">Auth App</Link>
+        <div className="heading">
+            <div className="nav-title center">
+              <Link to="/" className="">Holy SH*T PUPPIES!</Link>
             </div>
-            <div className="collapse navbar-collapse">
+
+            <div className="nav-links">
               {this.props.auth ? userLinks : guestLinks}
             </div>
-          </div>
-        </nav>
+        </div>
     );
   }
 }
@@ -45,4 +43,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { logout })(NavigationBar);
-
