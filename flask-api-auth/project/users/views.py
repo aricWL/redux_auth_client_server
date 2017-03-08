@@ -74,7 +74,7 @@ class authAPI(Resource):
 @users_api.resource('/users')
 class usersAPI(Resource):
 
-    # @jwt_required
+    @jwt_required
     @marshal_with(user_fields)
     def get(self):
         return User.query.all()
