@@ -74,7 +74,6 @@ class authAPI(Resource):
         parser.add_argument('username', type=str, help='username')
         parser.add_argument('password', type=str, help='password')
         args = parser.parse_args()
-        from IPython import embed; embed()
         token = authenticate(args['username'], args['password'])
         if token:
             found_user = User.query.filter_by(username= args['username']).first()
