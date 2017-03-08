@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from './actions';
-import './index.css'
+import logo from './logo.png';
+import './index.css';
 
 class NavigationBar extends React.Component {
   logout(e) {
@@ -25,9 +26,14 @@ class NavigationBar extends React.Component {
     return (
         <div className="heading">
             <div className="nav-title center">
-              <Link to="/" className="">Very Important Puppies</Link>
-            </div>
+              <Link to="/" className="">
+                <img src={logo} className="logo"/>
+              </Link>
 
+            </div>
+            <div>
+              <Link to="/"></Link>
+            </div>
             <div className="nav-links">
               {this.props.auth ? userLinks : guestLinks}
             </div>
