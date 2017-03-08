@@ -39,6 +39,7 @@ class PuppiesAPI(Resource):
     @jwt_required()
     @marshal_with(puppy_fields)
     def post(self, user_id):
+        from IPython import embed; embed()
         parser = reqparse.RequestParser()
         parser.add_argument('name', type=str, help='Name')
         args = parser.parse_args()

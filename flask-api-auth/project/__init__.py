@@ -22,5 +22,7 @@ from project.puppies.views import puppies_api
 from project.users.views import users_api
 
 app.register_blueprint(users_api.blueprint, url_prefix='/api')
-app.register_blueprint(puppies_api.blueprint, url_prefix='/api/users/<int:user_id>')
+# app.register_blueprint(puppies_api.blueprint, url_prefix='/api/users/<int:user_id>')
+app.register_blueprint(puppies_api.blueprint, url_prefix='/api/puppies')
+
 

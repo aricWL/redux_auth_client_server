@@ -13,12 +13,6 @@ export function setAuthorizationToken(token) {
   }
 }
 
-export function signup(userData) {
-  return dispatch => {
-    return axios.post(`${BASE_URL}/api/users`, userData);
-  }
-}
-
 export function logout() {
   return dispatch => {
     localStorage.removeItem('jwtToken');
@@ -43,4 +37,24 @@ export function setCurrentUser(user) {
     type: SET_CURRENT_USER,
     user
   };
+}
+
+export function signup(userData) {
+  return function notDispatch() { 
+  // return dispatch => {
+    return axios.post(`${BASE_URL}/api/users`, userData);
+  }
+}
+// This action /\ has to be an "object" under normal circumstnaces, not some other
+// commnd. Thankfully, a Function is an object (is this correct?)
+// if so, then that "boject can then return the axios.post to the correct route
+
+export function addPuppy(puppyData){
+  return dispatch => {
+    console.log("add puppy ran!")
+    debugger
+    // Why isnt this posting?
+    return axios.post(`${BASE_URL}/api/puppies`, puppyData);
+  }
+// FUCKING YESSSS IT WORKS!!!!
 }

@@ -24,6 +24,7 @@ class Signup extends React.Component {
   onSubmit(e) {
     e.preventDefault();
       // make sure we use an arrow function here to correctly bind this to this.context.router
+      debugger
       this.props.signup(this.state).then(() =>{
           // route to /login once signup is complete
           this.context.router.push('/login');
