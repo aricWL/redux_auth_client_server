@@ -11,8 +11,7 @@ export class PuppyForm extends Component{
 	constructor(props) {
 		super(props)
 		this.state = {
-			name:"",
-			owner:"",
+			name:""
 		}
 
 	}
@@ -23,10 +22,9 @@ export class PuppyForm extends Component{
 
 	onSubmit(e){
 		e.preventDefault();
-      	console.log(this.state.name, this.state.owner)
-      	// debugger
+      	console.log("Adding a puppy named " + this.state.name)
       	// this addPuppy function takes an object that axios can then parse
-      	this.props.addPuppy(this.state)
+      	this.props.addPuppy(this.state.name)
 
 	}
 
@@ -35,11 +33,8 @@ export class PuppyForm extends Component{
 		return (
 			<div id='PuppyForm'>
 				<form onSubmit={this.onSubmit.bind(this)}>
-					<label>Name:
+					<label>Shitty Puppy Name:
 						<input name='name' onChange={this.onChange.bind(this)}/>
-					</label>
-					<label>Owner:
-						<input name='owner' onChange={this.onChange.bind(this)}/>
 					</label>
 					<input type='submit' value='Submit'/>
 				</form>

@@ -24,8 +24,10 @@ export function logout() {
 export function login(data) {
   return dispatch => {
     return axios.post(`${BASE_URL}/api/users/auth`, data).then(res => {
-      const token = res.data;
+      const token = res.data.token;
+      const userId = res.data.id;
       localStorage.setItem('jwtToken', token);
+      localStorage.setItem('id', userId);
       setAuthorizationToken(token);
       dispatch(setCurrentUser(jwtDecode(token)));
     });
@@ -50,11 +52,12 @@ export function signup(userData) {
 // if so, then that "boject can then return the axios.post to the correct route
 
 export function addPuppy(puppyData){
+  console.log("add puppy debugger")
+  debugger
+  var userId = localStorage.id
   return dispatch => {
     console.log("add puppy ran!")
-    debugger
     // Why isnt this posting?
-    return axios.post(`${BASE_URL}/api/puppies`, puppyData);
+    return axios.post(`${BASE_URL}/api/users/${userId}/puppies`, puppyData)
   }
-// FUCKING YESSSS IT WORKS!!!!
 }

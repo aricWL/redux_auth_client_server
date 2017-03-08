@@ -14,6 +14,8 @@ class User(db.Model):
         self.username = username
         self.password = bcrypt.generate_password_hash(password).decode('UTF-8')
 
+    def __repr__(self,name,user_id):
+        return "Name: {}, ID: {}, Puppies: {}, Created: {}".format(self.username,self.id, self.puppies, self.created)
 
 class Puppy(db.Model):
     __tablename__ = 'puppies'
@@ -26,3 +28,6 @@ class Puppy(db.Model):
     def __init__(self,name, user_id):
         self.name = name
         self.user_id = user_id
+
+    def __repr__(self,name,user_id):
+        return "Name: {}, ID: {}".format(self.name,self.user_id)
