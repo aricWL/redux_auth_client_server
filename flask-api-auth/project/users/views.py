@@ -81,7 +81,6 @@ class authAPI(Resource):
             obj = {'token': token, 'id': found_user.id} 
             # this looks like where the JWT token is being returned,
             # and specified to have an id element
-            from IPython import embed; embed()
             return obj
         return abort(400, "Invalid Credentials")
 

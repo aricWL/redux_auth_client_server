@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { login } from './actions';
+import Loader from 'react-loader'
 import Flash from './Flash'
 
 class LoginForm extends React.Component {
@@ -9,22 +10,28 @@ class LoginForm extends React.Component {
     this.state = {
       username: '',
       password: '',
+      isLoaded: true,
       error: false
     };
-
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
+  toggleLoader() {
+    this.setState({ isLoaded: !this.state.isLoaded });
+  }
 
   onSubmit(e) {
     e.preventDefault();
+      this.toggleLoader()
       this.props.login(this.state).then(
         (res) => {
-          this.setState({error: false})
+          this.toggleLoader()
           this.context.router.push('/welcome')
-        },
+          this.setState({error: false})},
+        
         (err) => {
+            this.toggleLoader()
             this.setState({error: true})
         });
   }
@@ -34,11 +41,16 @@ class LoginForm extends React.Component {
   }
 
   render() {
+    const { isLoaded } = this.state;
     const { username, password } = this.state;
       if (this.state.error === true) {
           return (
               <div>
                 <div>
+                <div className="loader-wrapper">
+                <Loader loaded={isLoaded}>
+                </Loader>
+                </div>
                   <form onSubmit={this.onSubmit}>
                     <Flash></Flash>
                     <h1>Sign up!</h1>
@@ -64,6 +76,10 @@ class LoginForm extends React.Component {
     return (
       <div>
         <div>
+        <div className="loader-wrapper">
+                <Loader loaded={isLoaded}>
+                </Loader>
+                </div>
       <form onSubmit={this.onSubmit}>
         <h1>Login</h1>
         <div className="form-group">
