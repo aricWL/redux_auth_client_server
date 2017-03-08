@@ -24,13 +24,13 @@ export function logout() {
 export function login(data) {
   return dispatch => {
     return axios.post(`${BASE_URL}/api/users/auth`, data).then(res => {
+      console.log(res)
       // where is "res" coming from?
       const token = res.data.token;
       const userId = res.data.id;
       localStorage.setItem('jwtToken', token);
       localStorage.setItem('id', userId);
       setAuthorizationToken(token);
-      // debugger
       dispatch(setCurrentUser(jwtDecode(token)));
     });
   }
@@ -59,8 +59,22 @@ export function addPuppy(puppyData){
   var userId = localStorage.id
   return dispatch => {
     console.log("add puppy ran!")
+    debugger
     // Why isnt this posting?
     return axios.post(`${BASE_URL}/api/users/${userId}/puppies`, puppyData)
   }
 }
+
+export function getUsers(){
+  console.log("getting users")
+  var token = localStorage.jwtToken
+  return dispatch => {
+// where is my asycn JSON code?
+    return (axios.get(`${BASE_URL}/api/users`, token)).then(res => {
+        // console.log(res)
+        return res;
+    })
+  }     
+}
+
 

@@ -16,10 +16,8 @@ def authenticate(username, password):
 def jwt_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
-        from IPython import embed; embed()
-        # see what happens
         if request.headers.get('authorization'):
-            split_token = request.headers.get('token').split(' ')[2]
+            split_token = request.headers.get('authorization').split(' ')[1]
         try:
             token = jwt.decode(split_token, 'secret', algorithm='HS256')
             if token:
@@ -74,14 +72,13 @@ class authAPI(Resource):
         parser.add_argument('username', type=str, help='username')
         parser.add_argument('password', type=str, help='password')
         args = parser.parse_args()
-        from IPython import embed; embed()
+
         token = authenticate(args['username'], args['password'])
         if token:
             found_user = User.query.filter_by(username= args['username']).first()
             obj = {'token': token, 'id': found_user.id} 
             # this looks like where the JWT token is being returned,
             # and specified to have an id element
-            from IPython import embed; embed()
             return obj
         return abort(400, "Invalid Credentials")
 
