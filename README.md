@@ -11,5 +11,6 @@ Please fork and clone this repo to your local machine.
 *Npm
 *virtualenv 
 
-Within the redux-auth directory on your local machine run 'npm install' on the command line to install all of the dependencies located in the package.json file. 
-Within the flask-api-auth directory on your local machine run 'pip install -r requirements.txt' on the command line to install all of the required packages.
+
+1. ``` run npm install in the redux-auth directory ```
+2. ```run pip install -r requirements.txt in the flask-api-auth directory```
