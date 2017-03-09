@@ -24,7 +24,6 @@ export class PuppyForm extends Component{
         e.preventDefault();
           console.log("Adding a puppy named " + this.state.name)
           // this addPuppy function takes an object that axios can then parse
-          debugger
           this.props.addPuppy(this.state)
     }
 
