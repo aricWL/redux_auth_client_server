@@ -30,7 +30,9 @@ class TestinTime(TestCase):
 		user1 = User(username='aliesenfelt', password='pass1')
 		user2 = User(username='ttaylor', password='pass2')
 		user3 = User(username='amundy', password='pass3')
-		db.session.add_all([user1, user2, user3])
+		puppy1 = Puppy('whiskey', 2)
+		puppy2 = Puppy('moxie', 3)
+		db.session.add_all([user1, user2, user3, puppy1, puppy2])
 		db.session.commit()
 		
 	def tearDown(self):
@@ -56,12 +58,13 @@ class TestinTime(TestCase):
 		}, {
 			'id': 2,
 			'username': 'ttaylor',
-			'puppies': []
+			'puppies': [{'id': 1, 'name': 'whiskey'}]
 		}, {
 			'id': 3,
 			'username': 'amundy',
-			'puppies': []
+			'puppies': [{'id': 2, 'name': 'moxie'}]
 		}]
+
 		
 
 		self.assertEqual(response.status_code, 200)
@@ -151,7 +154,29 @@ class TestinTime(TestCase):
 		self.assertEqual(response.status_code, 204)
 		self.assertEqual(User.query.count(), 2)
 
-	
+	def test_puppies(self):
+		
+		cool = self._login_user()
+
+		# Figure out the name of the header
+		# figure out the value of the header
+			# add the token to the header
+
+		response = self.client.get('/api/users/2/puppies',
+									headers= dict(
+										authorization= 'Authorization JWT ' + cool['token']
+										),
+									content_type='application/json')
+		expected_json = [{
+			'id': 1,
+			'name': 'whiskey',
+			'user': [{'id': 2, 'username': 'ttaylor'}]
+		}]
+
+		
+
+		self.assertEqual(response.status_code, 200)
+		self.assertEqual(response.json, expected_json)
 
 
 if __name__ == '__main__':

@@ -10,7 +10,7 @@ from jwt.exceptions import DecodeError
 def jwt_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
-        from IPython import embed; embed()
+
         if request.headers.get('token'):
             split_token = request.headers.get('token').split(' ')[2]
         try:

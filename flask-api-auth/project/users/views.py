@@ -48,8 +48,7 @@ users_api = Api(Blueprint('users_api', __name__))
 
 user_puppies_fields = {
     'id': fields.Integer,
-    'name': fields.String,
-    'created': fields.DateTime(dt_format='rfc822'),
+    'name': fields.String
 }
 
 user_fields= {
