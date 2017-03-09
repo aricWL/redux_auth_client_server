@@ -17,7 +17,7 @@ export class Welcome extends Component{
 	constructor(props) {
         super(props)
         this.state = {
-            users: ""
+            users: ["I","am","defualt"]
         }
 
     }
@@ -26,7 +26,17 @@ export class Welcome extends Component{
 		this.props.getUsers().then( (res) => {
     		console.log("Promise running")
     		console.log(res.data)
-    		this.setState({users: res.data})
+    		debugger
+
+    		let users = res.data.map(function(userObj) {
+    			return userObj.username;
+    		})
+    		debugger
+    		console.log(res)
+
+    		this.setState({
+    			users: users
+    		})
     	})
 	}
 
