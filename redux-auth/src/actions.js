@@ -64,7 +64,7 @@ export function addPuppy(puppyData){
     return axios.post(`${BASE_URL}/api/users/${userId}/puppies`, puppyData)
   }
 }
-<<<<<<< HEAD
+
 
 export function getUsers(){
   console.log("getting users")
@@ -79,5 +79,3 @@ export function getUsers(){
 }
 
 
-=======
->>>>>>> 682fb8738a1edda7a56b85ccd69c199554ce681e
