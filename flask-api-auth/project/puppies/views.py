@@ -48,7 +48,6 @@ puppy_user_fields = {
 puppy_fields= {
     'id': fields.Integer,
     'name': fields.String,
-    'created': fields.DateTime(dt_format='rfc822'),
     'user': fields.Nested(puppy_user_fields)
 }
 

@@ -4,6 +4,7 @@ import Login from './Login'
 import Signup from './Signup'
 import Welcome from './Welcome'
 import NotFound from './NotFound'
+import Puppies from './Puppies.jsx'
 import NavigationBar from './NavigationBar'
 import requireAuth from './requireAuth'
 
@@ -16,6 +17,7 @@ export default class App extends Component {
           <div className="container content center">
             <Switch>
                 <Route exact path="/"/>
+                <Route path='/add' component={Puppies} />
                 <Route path='/login' component={Login} />
                 <Route path='/signup' component={Signup} />
                 <Route path='/welcome' component={requireAuth(Welcome)} />
