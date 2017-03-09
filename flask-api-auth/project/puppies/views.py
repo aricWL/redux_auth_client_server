@@ -3,16 +3,16 @@ from flask_restful import Api, Resource, reqparse, marshal_with, fields
 from project.models import Puppy, User
 from project import db
 import jwt
-from flask_jwt import current_identity
 from functools import wraps
 from jwt.exceptions import DecodeError
 
 def jwt_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
+        # see what happens
+        if request.headers.get('authorization'):
+            split_token = request.headers.get('authorization').split(' ')[1]
 
-        if request.headers.get('token'):
-            split_token = request.headers.get('token').split(' ')[2]
         try:
             token = jwt.decode(split_token, 'secret', algorithm='HS256')
             if token:
@@ -63,13 +63,13 @@ class PuppiesAPI(Resource):
     @marshal_with(puppy_fields)
     def post(self, user_id):
         parser = reqparse.RequestParser()
-        parser.add_argument('name', type=str, help='Name')
+        parser.add_argument('name', type=str, help='name')
         args = parser.parse_args()
         new_puppy = Puppy(args['name'], user_id)
+
         db.session.add(new_puppy)
         db.session.commit()
         print("Adding a puppy backend")
-
         return new_puppy
 
 @puppies_api.resource('/puppies/<int:id>')
@@ -90,7 +90,6 @@ class PuppyAPI(Resource):
         found_puppy.name = args['name']
         db.session.add(found_puppy)
         db.session.commit()
-
         return found_puppy
 
     def delete(self, user_id, id):

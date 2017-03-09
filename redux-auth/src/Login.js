@@ -26,6 +26,7 @@ class LoginForm extends React.Component {
       this.toggleLoader()
       this.props.login(this.state).then(
         (res) => {
+          this.setState({error: false})
           this.toggleLoader()
           this.context.router.push('/welcome')
           this.setState({error: false})},
