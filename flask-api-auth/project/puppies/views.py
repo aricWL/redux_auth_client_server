@@ -42,7 +42,7 @@ puppies_api = Api(Blueprint('puppies_api', __name__))
 
 puppy_user_fields = {
     'id': fields.Integer,
-    'username': fields.String,
+    'username': fields.String
 }
 
 puppy_fields= {

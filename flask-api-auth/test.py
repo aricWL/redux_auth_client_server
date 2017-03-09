@@ -48,7 +48,7 @@ class TestinTime(TestCase):
 
 		response = self.client.get('/api/users',
 									headers= dict(
-										authorization= 'Authorization JWT ' + cool['token']
+										authorization= 'JWT ' + cool['token']
 										),
 									content_type='application/json')
 		expected_json = [{
@@ -106,7 +106,7 @@ class TestinTime(TestCase):
 
 		response = self.client.get('api/users/1',
 									headers= dict(
-										authorization= 'Authorization JWT ' + cool['token']
+										authorization= 'JWT ' + cool['token']
 										),
 									content_type='application/json')
 		expected_json = ({
@@ -124,7 +124,7 @@ class TestinTime(TestCase):
 		
 		response = self.client.put('api/users/1',
 									headers= dict(
-										authorization= 'Authorization JWT ' + cool['token']
+										authorization= 'JWT ' + cool['token']
 										),
 									content_type='application/json',
 									data=json.dumps({
@@ -146,7 +146,7 @@ class TestinTime(TestCase):
 		
 		response = self.client.delete('api/users/1',
 									headers= dict(
-										authorization= 'Authorization JWT ' + cool['token']
+										authorization= 'JWT ' + cool['token']
 										),
 									content_type='application/json')
 		
@@ -155,25 +155,22 @@ class TestinTime(TestCase):
 		self.assertEqual(User.query.count(), 2)
 
 	def test_puppies(self):
-		
 		cool = self._login_user()
 
-		# Figure out the name of the header
-		# figure out the value of the header
-			# add the token to the header
-
-		response = self.client.get('/api/users/2/puppies',
+		response = self.client.get('api/users/2/puppies',
 									headers= dict(
-										authorization= 'Authorization JWT ' + cool['token']
+										authorization = 'JWT ' + cool['token']
 										),
 									content_type='application/json')
-		expected_json = [{
+
+		expected_json = ([{
 			'id': 1,
 			'name': 'whiskey',
-			'user': [{'id': 2, 'username': 'ttaylor'}]
-		}]
-
-		
+			'user': {
+				'id': 2,
+				'username': 'ttaylor'
+			}
+			}])
 
 		self.assertEqual(response.status_code, 200)
 		self.assertEqual(response.json, expected_json)
